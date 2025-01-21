@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Marketplace</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <nav class="menu">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#nav-cells">Explore</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="banner">
+                <img src="./assets/images/bulb2.jpg" alt="Marketplace Banner">
+                <div class="banner-text">
+                    <h2>Welcome to the Bright Printer Store</h2>
+                    <p>Dreams greater than just ink and paper</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Step 1: Image Upload Section -->
+    <section id="upload-section">
+        <h2>Upload Your Images</h2>
+        <div class="upload-area" id="upload-area">
+            <p>Drop your images here or <label for="file-input" style="color: blue; cursor: pointer;">browse</label></p>
+            <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
+        </div>
+        <div id="image-preview"></div>
+        <button id="upload-button">Upload</button>
+    </section>
+
+    <!-- Step 2: Image Details Form -->
+    <section id="details-section" style="display: none;">
+        <h2>Enter Image Details</h2>
+        <form id="details-form">
+            <label for="pages">Number of Pages to Print:</label>
+            <input type="number" id="pages" name="pages" placeholder="Enter number of pages" min="1" required>
+
+            <label for="size">Size:</label>
+            <select id="size" name="size">
+                <option value="A4" selected>A4</option>
+                <option value="A5">A5</option>
+                <option value="A3">A3</option>
+                <option value="Letter">Letter</option>
+            </select>
+
+            <label for="paperColor">Paper Color:</label>
+            <select id="paperColor" name="paperColor">
+                <option value="White" selected>White</option>
+                <option value="Blue">Blue</option>
+                <option value="Pink">Pink</option>
+            </select>
+
+            <label for="sides">Sides:</label>
+            <select id="sides" name="sides">
+                <option value="1 Side" selected>1 Side</option>
+                <option value="2 Sides">2 Sides</option>
+            </select>
+
+            <button type="button" id="submit-details" class="details-toggle">Submit Details</button>
+        </form>
+    </section>
+
+    <!-- Step 3: Preview and Pricing -->
+    <main id="preview-section" style="display: none;">
+    <h2>Preview and Pricing</h2>
+    <div class="image-carousel">
+        <button id="prev-btn">&lt;</button>
+        <img id="flyer-preview" src="" alt="Flyer Preview">
+        <button id="next-btn">&gt;</button>
+    </div>
+    <p><strong>Delivery:</strong> <span id="delivery-time">7 working days</span></p>
+    <p><strong>Total Net Price:</strong> <span id="total-price">R</span></p>
+    <p><strong>Delivery:</strong> <span id="delivery-cost">FREE</span></p>
+</main>
+
+
+    <footer>
+        <div id="footer">
+        <div class="footer-container">
+            <div class="contact-info">
+                <p>Email: <a href="mailto:23019520@mvula.univen.ac.za">23019520@mvula.univen.ac.za</a></p>
+                <p>Phone: <a href="tel:+2798616203">+27 98 616 203</a></p>
+                <p>WhatsApp: <a href="https://wa.me/2798616203">079 861 6203</a></p>
+            </div>
+            <div class="footer-links">
+                <p>&copy; 2025 Bringt Stores. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+    </footer>
+
+    <script>
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const submitDetailsButton = document.getElementById('submit-details');
+        const uploadButton = document.getElementById('upload-button');
+        const uploadSection = document.getElementById('upload-section');
+        const detailsSection = document.getElementById('details-section');
+        const previewSection = document.getElementById('preview-section');
+        const flyerPreview = document.getElementById('flyer-preview');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+    
+        let uploadedFiles = [];
+        let currentImageIndex = 0;
+    
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+    
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+    
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+    
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+    
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/') && !uploadedFiles.some(f => f.name === file.name)) {
+                    uploadedFiles.push(file);
+                    displayThumbnail(file);
+                } else {
+                    alert('Only images are allowed or the image is already uploaded.');
+                }
+            }
+        }
+    
+        function displayThumbnail(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result;
+                imgElement.style.maxWidth = '150px';
+                imgElement.style.margin = '10px';
+                imgElement.classList.add('preview-image');
+                imagePreview.appendChild(imgElement);
+            };
+            reader.readAsDataURL(file);
+        }
+    
+        uploadButton.addEventListener('click', () => {
+            if (uploadedFiles.length > 0) {
+                alert(`${uploadedFiles.length} image(s) ready to be uploaded!`);
+                uploadSection.style.display = 'none';
+                detailsSection.style.display = 'block';
+            } else {
+                alert('Please upload at least one image.');
+            }
+        });
+    
+        submitDetailsButton.addEventListener('click', () => {
+            if (uploadedFiles.length > 0) {
+                detailsSection.style.display = 'none';
+                previewSection.style.display = 'block';
+                displayImage(0);
+            } else {
+                alert('No images uploaded for preview.');
+            }
+        });
+    
+        function displayImage(index) {
+            if (uploadedFiles.length > 0) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    flyerPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(uploadedFiles[index]);
+            }
+        }
+    
+        prevBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + uploadedFiles.length) % uploadedFiles.length;
+            displayImage(currentImageIndex);
+        });
+    
+        nextBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % uploadedFiles.length;
+            displayImage(currentImageIndex);
+        });
+    </script>
+    
+    
