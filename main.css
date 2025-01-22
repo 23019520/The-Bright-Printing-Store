@@ -1,0 +1,234 @@
+/* Reset and General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+}
+
+.header-container {
+    width: 100%;
+    height: 100%;
+}
+
+.menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: text-shadow 0.3s ease;
+}
+
+.menu li a:hover {
+    text-shadow: 0 0 10px gold;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.banner-text h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.banner-text p {
+    font-size: 1.5rem;
+}
+
+/* Main */
+main {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+main form {
+    flex: 3;
+}
+
+aside {
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+aside img {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+.upload-area.drag-over {
+    border-color: #007bff;
+}
+#image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.preview-image {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#upload-section {
+    text-align: center;
+    padding: 50px;
+    background-color: #f8f8f8;
+    border: 2px dashed #ccc;
+    margin: 20px;
+    transition: border-color 0.3s ease;
+}
+
+#upload-section.drag-over {
+    border-color: #007bff;
+}
+
+#flyer-preview {
+    max-width: 30%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: #333;  /* Dark background for the footer */
+    color: #fff;  /* White text color */
+    padding: 20px 0;  /* Some padding for spacing */
+    text-align: center;  /* Center the content */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;  /* Centers the content */
+    padding: 0 20px;
+}
+
+.contact-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.contact-info a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;  /* Add underline on hover */
+}
+
+.details-toggle {
+    background: #f1f1f1;
+    color: #222;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.details-toggle:hover {
+    background: #ddd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+.process-payment-btn {
+    background-color: #007bff; /* Button color (blue) */
+    color: #fff; /* White text */
+    padding: 10px 20px; /* Spacing inside the button */
+    font-size: 16px; /* Font size */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 20px; /* Spacing from the top */
+    width: 100%; /* Make the button full-width */
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.process-payment-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.image-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.image-carousel img {
+    max-width: 300px;
+    max-height: 300px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+#prev-btn, #next-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+#prev-btn:hover, #next-btn:hover {
+    background-color: #0056b3;
+}
+
